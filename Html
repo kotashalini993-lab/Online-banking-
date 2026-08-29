@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Digital Bank - secure Account Opening</title>
+        <style>
+        *   {
+                box-sizing: border-box;
+                margin: 0;
+                font-family: Arial, sans-serif;
+        }
+        body {
+            background: #f2f6ff;
+            color: #172033;
+        }
+        .header {
+            background: #123c8c;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 25px;
+        }
+        .secure-badge {
+            margin-top: 7px;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .container {
+            width: 95%;
+            max-width: 650px;
+            margin: 25px auto;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        .step {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        .step div {
+            width: 32%;
+            text-align: center;
+            padding: 10px 5px;
+            border-radius: 8px;
+            background: #e9eef8;
+            font-size: 13px;
+        }
+        .step .active {
+            background: #123c8c;
+            color: white;
+        }
+        h2 {
+            margin-bottom: 8px;
+            color: #123c8c;
+        }
+        .subtitle {
+            color: #667085;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            font-size: 14px
+        }
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccd3df;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+        input:focus,
+        selct:focus {
+            border-color: #123c8c;
+        }
+        .phone-box {
+            display: flex;
+            gap: 8px;
+        }
+        .country-code {
+            width: 85px;
+        }
+        .phone-number {
+            flex: 1;
+        }
+        button {
+            width: 100%;
+            padding:14px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 9px;
+            background: #123c8c;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer; 
+        }
+        button:hover {
+            background: #0b2e70;
+        }
+        .secondary-btn {
+            background: #e9eef8;
+            color: #123c8c;
+        }
+        .secondary-btn:hover {
+            background: #dbe4f7;
+        }
+        .otp-box {
+            display: none;
+        }
+        .details-box {
+            display: none;
+        }
+        .success-box {
+            display: none;
+            text-align: center;
+        }
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #d9fbe5;
+            color: #168548;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 35px;
+        }
+        .secure-link {
+            background: #f1f6ff;
+            border: 1px solid #b9ccef;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            word-break: break-all;
+            font-size: 13px;
+        }
+        .security-info {
+            background: #fff8e6;
+            border-left: 4px solid #f0a500;
+            padding:12px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #664d00;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #667085;
+            font-size: 12px;
+        }
+        @media (max-width: 500px) {
+            .card {
+                padding: 18px;
+            }
+            .step div {
+                font-size: 11px;
+            }
+        }
+        </style>
+    </head>
+<body>
+    <header class="header">
+        <h1>Digital Bank</h1>
+        <div class="secure-badge">
+            Secure Account Opening
+        </div>
+    </header>
+    <main class="container">
+        <div class="card">
+            <div class="step">
+                <div id="step1" class="active">1. Mobile</div>
+                <div id="step2">2. Verify</div>
+                <div id="step3">3. Details</div>
+            </div>
+            <!--MOBILE SECTION-->
+            <section id="mobilesection">
+                <h2>Open Your Bank Account</h2>
+                <p class="subtitle">
+                    Start your digital bank account application using your mobile number.
+                </p>
+                <label>Mobile Number</label>
+                <div class="phone-box">
+                    <input
+                    class="country-code"
+                    type="texr"
+                    value="+91"
+                    readonly
+                    >
+                    <input
+                    id="mobile"
+                    class="phone-number"
+                    type="tel"
+                    maxlength="10"
+                    placeholder="Enter mobile number"
+                    >
+                </div>
+                <button onclick="sendOTP()">
+                    Send Secure OTP
+                </button>
+                <div class="security-info">
+                    Never share your OTP, PIN, password, or banking credentials with anyone.
+                </div>
+            </section>
+            <!--OTP SECTION-->
+            <section id="otpsection" class="otp-box">
+                <h2>Verify Your Mobile Number</h2>
+                <p class="subtitle">
+                    Enter the OTP sent to your mobile number.
+                </p>
+                <label>OTP</label>
+                <input
+                id="otp"
+                type="text"
+                maxlength="6"
+                placeholder="Enter OTP"
+                >
+                <button onclick="verifyOTP()">
+                    Verify OTP
+                </button>
+            </section>
+            <!--DETAILS SECTION-->
+            <section id="detailssection" class="details-box">       
+                <h2>Provide Your Details</h2>
+                <p class="subtitle">
+                    Fill in your personal information to complete the account opening process.          
+                </p>
+                <label>Full Name</label>
+                <input
+                id="fullname"   
+                type="text"
+                placeholder="Enter your full name"  
+                >
+                <label>Date of Birth    </label>
+                <input
+                id="dob"
+                type="date"
+                >
+                <label>Email Address</label>
+                <input      
+                 id="email"
+                type="email"
+                placeholder="Enter your email address"
+                >
+                <button onclick="submitDetails()">
+                    Submit Details
+                </button>
+                <label> Account Type    </label>
+                <select id="accountType">
+                    <option value="">Select Account Type</option>
+                    <option value="savings">Savings Account</option>
+                    <option value="current">Current Account</option>
+                    <option value="fixed">Fixed Deposit Account</option>
+                </select>
+                <label> Address </label>
+                <input
+                id="address"
+                type="text"
+                placeholder="Enter your address"
+                >
+                <button onclick="submitDetails()">
+                    Submit Details
+                </button>
+            </section>
+            <section id="successsection" class="success-box">
+                <div class="success-icon">&#10004;</div>
+                <h2>Account Opened Successfully!</h2>
+                <p class="subtitle">
+                    Your digital bank account has been created successfully. You can now log in and start using your account.
+                </p>
+                <div class="secure-link">
+                    <strong> Secure Application link </strong><br><br>
+                    <span id="secureLink"></span>
+                </div>
+                <button onclick="copyLink()"> Copy Secure link </button>
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        &copy; 2026 Digital Bank. Securre Digital Banking Demo.
+    </footer>
+    <script>
+        let generatedOTP = "123456";
+        function sendOTP() {
+            const mobile = document.getElementById("mobile").value;
+            if (mobile.length === 10 && /^\d+$/.test(mobile)) {
+                document.getElementById("mobilesection").style.display = "none";
+                document.getElementById("otpsection").style.display = "block";
+                document.getElementById("step1").classList.remove("active");
+                document.getElementById("step2").classList.add("active");
+                alert("Demo OTP: 123456");
+            } 
+        }
+        function verifyOTP() {
+            const otp = document.getElementById("otp").value;
+            if (otp === generatedOTP) 
+            {
+                document.getElementById("otpsection").style.display = "none";
+                document.getElementById("detailssection").style.display = "block";
+                document.getElementById("step2").classList.remove("active");
+                document.getElementById("step3").classList.add("active");
+            }
+            if(otp!==generatedOTP)
+            {
+                alert("Invalid OTP. Please try again.");
+            }
+        }
+       function backToMobile() 
+       {
+
+            document.getElementById("otpSection").style.display = "none";
+            document.getElementById("mobileSection").style.display = "block";
+
+            document.getElementById("step2").classList.remove("active");
+            document.getElementById("step1").classList.add("active");
+        }
+
+        function submitApplication() {
+
+            const name =
+                document.getElementById("fullName").value.trim();
+
+            const dob =
+                document.getElementById("dob").value;
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const accountType =
+                document.getElementById("accountType").value;
+
+            const address =
+                document.getElementById("address").value.trim();
+                if (
+                !name ||
+                !dob ||
+                !email ||
+                !accountType ||
+                !address
+            ) {
+                alert("Please complete all required fields.");
+                return;
+            }
+
+            const applicationId =
+                "BANK-" +
+                Date.now();
+
+            const secureLink =
+                window.location.origin +
+                "/application/" +
+                applicationId;
+
+            document.getElementById("detailsSection").style.display = "none";
+
+            document.getElementById("successSection").style.display = "block";
+
+            document.getElementById("secureLink").textContent =
+                secureLink;
+        }
+
+
+        function copyLink() {
+
+            const link =
+                document.getElementById("secureLink").textContent;
+
+            navigator.clipboard.writeText(link)
+                .then(() => {
+                    alert("Secure link copied.");
+                })
+                .catch(() => {
+                    alert("Unable to copy the link.");
+                });
+        }
+
+    </script>
+
+</body>
+</html>
+```
